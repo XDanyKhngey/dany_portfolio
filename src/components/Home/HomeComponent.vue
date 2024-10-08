@@ -49,7 +49,7 @@ h4 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3); /* Black with 50% opacity */
+  background-color: rgba(0, 0, 0, 0.6); /* Black with 50% opacity */
   backdrop-filter: blur(8px); /* Adjust the blur radius as needed */
   z-index: 1; /* Ensure it's above the background image */
 }

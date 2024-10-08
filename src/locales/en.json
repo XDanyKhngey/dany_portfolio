@@ -5,5 +5,11 @@
     "hi_i_am": "Hi, I AM",
     "web_dev": "web developer",
     "government_officer": "government officer",
-    "download_cv": "Download CV"
+    "download_cv": "Download CV",
+    "education": "Education",
+    "skill": "Skill",
+    "experience": "Experience",
+    "profile": "Profile",
+    "family": "Family",
+    "contact": "Contact"
   }

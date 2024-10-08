@@ -15,17 +15,40 @@
               $t("home")
             }}</RouterLink>
           </li>
-          <li><a href="#">Education</a></li>
-          <li><a href="#">Skill</a></li>
-          <li><a href="#">Experience</a></li>
-          <li><a href="#">Profile</a></li>
-          <li><a href="#">Portfolio</a></li>
-          <li><a href="#">Family</a></li>
-          <li><a href="#">Contact</a></li>
+          <li>
+            <RouterLink to="/education" activeClass="active_link">{{
+              $t("education")
+            }}</RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/skill" activeClass="active_link">{{
+              $t("skill")
+            }}</RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/experience" activeClass="active_link">{{
+              $t("experience")
+            }}</RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/profile" activeClass="active_link">{{
+              $t("profile")
+            }}</RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/family" activeClass="active_link">{{
+              $t("family")
+            }}</RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/contact" activeClass="active_link">{{
+              $t("contact")
+            }}</RouterLink>
+          </li>
         </ul>
       </div>
       <div class="setting">
-        <ul class="d-flex justify-content-between p-0">
+        <ul class="d-flex justify-content-between align-items-center p-0">
           <li>
             <img
               style="cursor: pointer"
@@ -34,6 +57,11 @@
               :src="locale_img_src"
               alt="locales"
             />
+          </li>
+          <li style="padding: 5px 20px">
+            <a target="_blank" href="https://github.com/XDanyKhngey/dany_portfolio">
+              <img src="/img/github.png" width="32px" alt="Link to Github">
+            </a>
           </li>
         </ul>
       </div>
@@ -47,7 +75,7 @@ h2 {
   font-weight: bolder;
 }
 #nav_container {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 #nav_list li {
   padding: 30px 10px;
@@ -62,6 +90,7 @@ h2 {
 .active_link {
   border-bottom: 2px solid var(--bs-pink);
   color: var(--bs-pink) !important;
+  font-weight: bolder;
 }
 </style>
 
