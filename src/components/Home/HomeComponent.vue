@@ -10,25 +10,23 @@ import HeaderComponent from "../Header/HeaderComponent.vue";
       style="height: calc(100vh - 100px); flex-direction: column"
     >
       <h1 class="text-center">
-        Hi, I AM<br />
-        <span style="color: var(--bs-pink); font-weight: bold"
-          >KHGNEY DANY</span
-        >
+        {{ h1TypedText }}<br />
+        <br />
+        <span style="color: var(--bs-pink); font-weight: bold">{{
+          h1SpanTypedText
+        }}</span>
       </h1>
-      <h4 class="typing-effect text-center mt-4">
-        WEB DEVELOPER / GOVERMENT OFFICER
-      </h4>
+      <h4 class="text-center mt-5">{{ h4TypedText }}</h4>
       <a
         target="_blank"
         href="/cv.pdf"
         class="mt-5 btn btn-secondary"
         id="download_cv_btn"
-        >DOWNLOAD CV</a
+        >{{ $t("download_cv").toUpperCase() }}</a
       >
     </div>
   </div>
 </template>
-
 <style>
 h1,
 h4 {
@@ -88,81 +86,75 @@ h4 {
 
 <script>
 export default {
+  data() {
+    return {
+      h1TypedText: "", // Stores typed h1 text
+      h1SpanTypedText: "", // Stores typed span text
+      h4TypedText: "", // Stores typed h4 text
+      h1Index: 0, // Index for typing the h1 text
+      h1SpanIndex: 0, // Index for typing the h1 span text
+      h4Index: 0, // Index for typing the h4 text
+      typingSpeed: 100, // Typing speed in ms
+      loopDelay: 3000, // Delay before restarting the animation
+      typingInterval: null, // To store the interval ID
+    };
+  },
   mounted() {
-    // Text for typing animation
-    const h1Text = "Hi, I AM";
-    const h1SpanText = "KHGNEY DANY";
-    const h4Text = "WEB DEVELOPER / GOVERNMENT OFFICER";
-
-    // Get elements
-    const h1Element = document.querySelector("h1");
-    const h1SpanElement = h1Element.querySelector("span");
-    const h4Element = document.querySelector("h4");
-
-    let h1TypedText = ""; // For storing typed h1 text
-    let h4TypedText = ""; // For storing typed h4 text
-    let h1Index = 0; // Start index for h1 typing
-    let h4Index = 0; // Start index for h4 typing
-    let spanTyped = false; // Flag to check if span text has been typed
-
-    // Typing speed (in ms)
-    const typingSpeed = 100;
-    const loopDelay = 500; // Delay before starting the typing again
-
-    // Typing effect for h1 (including the span)
-    function typeH1() {
-      if (h1Index < h1Text.length) {
-        h1TypedText += h1Text[h1Index];
-        h1Element.innerHTML = `${h1TypedText}<br /><span style="color: var(--bs-pink); font-weight: bold">${h1SpanElement.innerHTML}</span>`;
-        h1Index++;
-      } else if (!spanTyped) {
-        h1SpanElement.textContent +=
-          h1SpanText[h1SpanElement.textContent.length];
-        if (h1SpanElement.textContent === h1SpanText) {
-          spanTyped = true;
+    this.startTyping(); // Start the typing animation when mounted
+  },
+  methods: {
+    resetTyping() {
+      // Reset both h1 and h4 texts and indices
+      this.h1TypedText = "";
+      this.h1SpanTypedText = "";
+      this.h4TypedText = "";
+      this.h1Index = 0;
+      this.h1SpanIndex = 0;
+      this.h4Index = 0;
+      this.startTyping(); // Restart the typing after reset
+    },
+    typeH1() {
+      const h1Text = this.$t("hi_i_am").toUpperCase();
+      if (this.h1Index < h1Text.length) {
+        this.h1TypedText += h1Text[this.h1Index];
+        this.h1Index++;
+      }
+    },
+    typeH1Span() {
+      const h1SpanText = this.$t("dany_khgney").toUpperCase();
+      if (this.h1SpanIndex < h1SpanText.length) {
+        this.h1SpanTypedText += h1SpanText[this.h1SpanIndex];
+        this.h1SpanIndex++;
+      }
+    },
+    typeH4() {
+      const h4Text = `${this.$t("web_dev").toUpperCase()} / ${this.$t(
+        "government_officer"
+      ).toUpperCase()}`;
+      if (this.h4Index < h4Text.length) {
+        this.h4TypedText += h4Text[this.h4Index];
+        this.h4Index++;
+      }
+    },
+    startTyping() {
+      this.typingInterval = setInterval(() => {
+        this.typeH1();
+        if (this.h1Index === this.$t("hi_i_am").toUpperCase().length) {
+          this.typeH1Span();
         }
-      }
-    }
-
-    // Typing effect for h4 (starts typing at the same time as h1)
-    function typeH4() {
-      if (h4Index < h4Text.length) {
-        h4TypedText += h4Text[h4Index];
-        h4Element.textContent = h4TypedText;
-        h4Index++;
-      }
-    }
-
-    function resetTyping() {
-      // Reset both h1 and h4 text and variables
-      h1TypedText = "";
-      h4TypedText = "";
-      h1Index = 0;
-      h4Index = 0;
-      spanTyped = false;
-      h1Element.innerHTML = `${h1Text}<br /><span style="color: var(--bs-pink); font-weight: bold"></span>`;
-      h4Element.textContent = "";
-      startTyping();
-    }
-
-    function startTyping() {
-      // Type both h1 and h4 at the same time
-      const typingInterval = setInterval(() => {
-        typeH1();
-        typeH4();
-
-        // When both texts are fully typed, reset after delay
+        this.typeH4();
         if (
-          h1SpanElement.textContent === h1SpanText &&
-          h4Element.textContent === h4Text
+          this.h1SpanTypedText === this.$t("dany_khgney").toUpperCase() &&
+          this.h4TypedText ===
+            `${this.$t("web_dev").toUpperCase()} / ${this.$t(
+              "government_officer"
+            ).toUpperCase()}`
         ) {
-          clearInterval(typingInterval);
-          setTimeout(resetTyping, loopDelay); // Wait before restarting
+          clearInterval(this.typingInterval);
+          setTimeout(this.resetTyping, this.loopDelay); // Restart after delay
         }
-      }, typingSpeed);
-    }
-
-    startTyping(); // Start the typing animation
+      }, this.typingSpeed);
+    },
   },
 };
 </script>

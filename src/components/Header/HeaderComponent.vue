@@ -2,7 +2,11 @@
   <div id="nav_container">
     <div class="container d-flex justify-content-between align-items-center">
       <div class="logo">
-        <h2 class="m-0">Dany Khgney</h2>
+        <h2 class="m-0">
+          <a style="color: var(--bs-pink); text-decoration: none" href="/">{{
+            $t("dany_khgney")
+          }}</a>
+        </h2>
       </div>
       <div class="navbar">
         <ul id="nav_list" class="d-flex justify-content-between p-0">
@@ -92,6 +96,7 @@ export default {
       this.$i18n.locale = newLocale;
       localStorage.setItem("locale", newLocale); // Save the selected locale
       this.updateLocaleImage(); // Update the image based on locale
+      location.reload();
     },
 
     updateLocaleImage() {
